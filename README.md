@@ -57,9 +57,23 @@ project_voidMarch/
 ---
 ## ⚙️ How to Run
 ### ***!MAKE SURE YOU ARE IN THE PROJECT DIRECTORY!***
+
 ```bash
-cd path/to/project` such as `cd project_voidMarch
+cd path/to/project
+``` 
+such as 
+```bash
+cd project_voidMarch
 ```
+
+
+### **Option 1 (_recommended_):**
+### Run the build script:
+```bash
+./build.sh
+```
+
+### **Option 2 (_manual_):**
 ### 🧹 Clear Build directory
 ```bash
 rm -rf build
@@ -69,7 +83,8 @@ rm -rf build
 cmake -B build -G Ninja
 cmake --build build
 ```
-### 🚀 How to Run
+
+### **Finally run the executable (After Option 1 or 2):**
 Windows:
 ```bash
 ./build/void_march.exe
@@ -78,3 +93,4 @@ Linux:
 ```bash
 ./build/void_march
 ```
+Enjoy!
