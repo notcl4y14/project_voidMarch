@@ -1,4 +1,6 @@
 ﻿# Build
+build/
+lib/
 math_core/target/
 build-windows/
 /out/
