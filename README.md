@@ -52,7 +52,7 @@ project_voidMarch/
 ├── include/ # Global headers and constants
 ├── math_core/ # Rust-integrated math modules
 ├── assets/ # Art, sound, textures (LFS-tracked)
-└── build-windows/ # Build output directory
+└── build/ # Build output directory
 ```
 ---
 ## ⚙️ How to Run
