@@ -14,41 +14,53 @@
 #include "include/standardUI/manager.hpp"
 // RUSTLANG INTEGRATION LIBRARY:
 #include "math_core.h"
+
 Vector2 mousePos;
+
 Color Ctext = {160, 160, 160, 255};
 Color spaceBlue = {25, 70, 240, 255};
+
 // Use to determine what to load:
 screen currentScreen = screen::Main;
 int screenWidth = 1280;
 int screenHeight = 720;
+
 int main(){
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "PROJECT: VOIDMARCH");
     SetTargetFPS(60);
     static Image icon = LoadImage("assets/graphics/logos/VoidMarchLogo.png");
     SetWindowIcon(icon);
     UnloadImage(icon);
+
     // Loop that the entire game runs within
     while(!WindowShouldClose()){
         mousePos = GetMousePosition();
-        BeginDrawing();
-        ClearBackground(BLACK);
+
+        // It makes more sense to update stuff before drawing
         if(IsKeyPressed(KEY_F11)){
             ToggleFullscreen();
         }
-        switch(currentScreen){
-            case screen::Main: 
-                loadMainScreen(mousePos, screenWidth, screenHeight);
-                break;
-            case screen::Select:
-                loadSelectScreen(mousePos, screenWidth, screenHeight);
-                break;
-            case screen::Game: 
-                gameStateEventHandler();
-                break;
-            case screen::LevelSelect:
-                loadLevelSelect(mousePos, screenWidth, screenHeight);
-                break;
-        }
+
+        BeginDrawing();
+
+            ClearBackground(BLACK);
+
+            switch(currentScreen){
+                case screen::Main:
+                    loadMainScreen(mousePos, screenWidth, screenHeight);
+                    break;
+                case screen::Select:
+                    loadSelectScreen(mousePos, screenWidth, screenHeight);
+                    break;
+                case screen::Game:
+                    gameStateEventHandler();
+                    break;
+                case screen::LevelSelect:
+                    loadLevelSelect(mousePos, screenWidth, screenHeight);
+                    break;
+            }
+
         EndDrawing();
     }
     PlayerTexManager::instance().unloadAll();

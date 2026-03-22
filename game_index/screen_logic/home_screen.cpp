@@ -57,7 +57,7 @@ void generateStars(int screenWidth, int screenHeight){
         Color tint;
         if(rng_int(1,3) == 1){
             tint = {(unsigned char)rng_int(0,255), (unsigned char)rng_int(0,255), (unsigned char)rng_int(0,255), (unsigned char)rng_int(0,255)};
-        } 
+        }
         else{tint = WHITE;}
         int clock = rng_int(0, 5);
         static const int rows = fullStarSheet.height / 5;
@@ -95,10 +95,13 @@ void drawStars(){
 }
 void mainPreLoadTasks(float screenWidth, float screenHeight){
     static Texture2D button = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
+
+    // Place button in center
     const float btnX = screenWidth/2.f;
     const float btnY = screenHeight/2.f;
-    mainManager.emplaceButton(Vector2{btnX,btnY},button,[]{currentScreen=screen::Select;});
+    mainManager.placeButton( "START", Vector2 { btnX, btnY }, button, []{ currentScreen = screen::Select; });
 }
+
 void loadMainScreen(Vector2 mousePos, float screenWidth, float screenHeight){
     static bool loaded = false;
     if(!loaded){

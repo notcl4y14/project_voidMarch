@@ -8,11 +8,27 @@ class Button{
     public:
         using Action = std::function<void()>;
         enum class DisplayDependency : std::uint8_t {None, OnHover, OnClick};
+
+        // You know, some functions just don't need to be initializers for ALL properties
+        // just do the external stuff after creating it :sob:
         Button(Vector2 pos, Texture2D tex, Action onClick = nullptr, std::string name = {}, ui::Button::DisplayDependency dependency = ui::Button::DisplayDependency::None, std::string targetName = {})
-        : tex(tex), onClick(std::move(onClick)), name(name), DependencyType(dependency), targetName(targetName) {bounds=Rectangle{pos.x,pos.y,(float)tex.width/3,(float)tex.height};}
+            : tex(tex)
+            , onClick(std::move(onClick))
+            , name(name)
+            , DependencyType(dependency)
+            , targetName(targetName)
+        {
+            bounds = Rectangle {
+                pos.x,
+                pos.y,
+                (float) tex.width/3,
+                (float) tex.height
+            };
+        }
 
         void update(Vector2 mouse){
             bool inside = CheckCollisionPointRec(mouse, bounds);
+
             if(!inside) state = State::Idle;
             else if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) state = State::Pressed;
             else if(IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && state == State::Pressed){
@@ -32,9 +48,13 @@ class Button{
                 case State::Pressed:
                 case State::Clicked: srcX = frameW * 2.0f;  break;
             }
-            Rectangle src{ srcX, 0.0f, frameW, bounds.height };
-            Vector2   dst{ bounds.x, bounds.y };
-            DrawTextureRec(tex, src, dst, WHITE);
+
+            // Rectangle src { srcX, 0.0f, frameW, bounds.height };
+            // Vector2   dst { bounds.x, bounds.y };
+            // DrawTextureRec(tex, src, dst, WHITE);
+
+            DrawRectangleRec(bounds, BLUE);
+            DrawText(label.c_str(), bounds.x, bounds.y, 16, WHITE);
         }
         void drawOutline() const{
             DrawRectangleLines(bounds.x, bounds.y, bounds.width, bounds.height, RED);
@@ -42,6 +62,7 @@ class Button{
         DisplayDependency DependencyType = DisplayDependency::None;
         std::string name;
         std::string targetName; // Used for checking when to update when set to custom dependency.
+        std::string label; // Used for label, text on button
         enum class State : std::uint8_t {Idle, Hover, Pressed, Clicked};
         State state = State::Idle;
         bool toggled = false;
@@ -53,4 +74,3 @@ class Button{
 
 
 } // Namespace ends here
-

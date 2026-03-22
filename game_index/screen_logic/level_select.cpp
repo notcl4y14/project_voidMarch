@@ -18,7 +18,7 @@ void levelSelectPreLoadTasks(float screenWidth, float screenHeight){
     static Texture2D button = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
     const float btnX = screenWidth/2.f;
     const float btnY = screenHeight/2.f;
-    levelSelectManager.emplaceButton(Vector2{btnX,btnY},button,[]{currentScreen=screen::Game;});
+    levelSelectManager.placeButton("Play", Vector2 { btnX, btnY }, button, []{currentScreen = screen::Game; });
 }
 void loadLevelSelect(Vector2 mousePos, float screenWidth, float screenHeight){
     static bool loaded = false;
@@ -29,4 +29,3 @@ void loadLevelSelect(Vector2 mousePos, float screenWidth, float screenHeight){
     levelSelectManager.updateAll(mousePos);
     levelSelectManager.drawAll();
 }
-

@@ -20,20 +20,21 @@ bool profSelect=false;
 void selectPreLoadTasks(float screenWidth, float screenHeight){
     static Texture2D button = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
     // Race select buttons
-    selectManager.emplaceButton(Vector2{0, 0},button,[]{currentRace = Race::Spacelizard;raceSelect=true;});
-    selectManager.emplaceButton(Vector2{50, 0},button,[]{currentRace = Race::Voidcrawler;raceSelect=true;});
-    selectManager.emplaceButton(Vector2{100, 0},button,[]{currentRace = Race::Mecha_sapien;raceSelect=true;});
-    selectManager.emplaceButton(Vector2{150, 0},button,[]{currentRace = Race::Human;raceSelect=true;});
+    selectManager.placeButton( "SpLz", Vector2 { 0, 0 }, button, []{ currentRace = Race::Spacelizard; raceSelect = true; });
+    selectManager.placeButton( "VdCr", Vector2 { 50, 0 }, button, []{ currentRace = Race::Voidcrawler; raceSelect = true; });
+    selectManager.placeButton( "McSp", Vector2 { 100, 0 }, button, []{ currentRace = Race::Mecha_sapien; raceSelect = true; });
+    selectManager.placeButton( "Human", Vector2 { 150, 0 }, button, []{ currentRace = Race::Human; raceSelect = true; });
     // Proffesion select buttons
-    selectManager.emplaceButton(Vector2{0, 50},button,[]{currentProf = Prof::Necromancer;profSelect=true;});
-    selectManager.emplaceButton(Vector2{50, 50},button,[]{currentProf = Prof::Craftsman;profSelect=true;});
-    selectManager.emplaceButton(Vector2{100, 50},button,[]{currentProf = Prof::Wizard;profSelect=true;});
-    selectManager.emplaceButton(Vector2{150, 50},button,[]{currentProf = Prof::Dualist;profSelect=true;});
+    selectManager.placeButton("NcrMnc", Vector2 { 0, 50 }, button, []{ currentProf = Prof::Necromancer; profSelect = true; });
+    selectManager.placeButton("CrftMn", Vector2 { 50, 50 }, button, []{ currentProf = Prof::Craftsman; profSelect = true; });
+    selectManager.placeButton("Wizard", Vector2 { 100, 50 }, button, []{ currentProf = Prof::Wizard; profSelect = true; });
+    selectManager.placeButton("Dualist", Vector2 { 150, 50 }, button, []{ currentProf = Prof::Dualist; profSelect = true; });
 
     // Button progresses to level select
     const float btnX = screenWidth/2.f;
     const float btnY = screenHeight/2.f;
-    selectManager.emplaceButton(Vector2{btnX, btnY},button,[]{if(raceSelect && profSelect) currentScreen = screen::LevelSelect;});
+    selectManager.placeButton("Choose", Vector2 { btnX, btnY }, button, []{ if(raceSelect && profSelect) currentScreen = screen::LevelSelect; });
+
     // Create background:
     selectManager.setupHelper(button);
     selectManager.Helper.setupScale(screenWidth, screenHeight);

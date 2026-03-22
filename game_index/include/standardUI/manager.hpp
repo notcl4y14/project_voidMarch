@@ -16,6 +16,13 @@ class Manager{
         Button& emplaceButton(Args&&... args){
             return buttons.emplace_back(std::forward<Args>(args)...);
         }
+        // (NOT) Overload to have text in buttons without making any "function not found" type
+        // of errors from the other places that create the button WITHOUT text
+        Button& placeButton(std::string text, Vector2 pos, Texture2D tex, std::function<void()> onClick = nullptr){
+            Button button (pos, tex, onClick);
+            button.label = text;
+            return buttons.emplace_back(button);
+        }
         void updateAll(Vector2 mouse){
             for(auto& b : buttons){
                 switch(b.DependencyType){
@@ -36,7 +43,7 @@ class Manager{
                     default: b.update(mouse); break;
                 }
             }
-        }  
+        }
         void drawAll() const{
             for(auto& b : buttons){
                 switch(b.DependencyType){
