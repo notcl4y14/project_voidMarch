@@ -15,10 +15,19 @@
 // The files' local ui manager:
 ui::Manager levelSelectManager;
 void levelSelectPreLoadTasks(float screenWidth, float screenHeight){
-    static Texture2D button = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
-    const float btnX = screenWidth/2.f;
-    const float btnY = screenHeight/2.f;
-    levelSelectManager.placeButton("Play", Vector2 { btnX, btnY }, button, []{currentScreen = screen::Game; });
+    static Texture2D buttonTexture = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
+
+    // const float btnX = screenWidth/2.f;
+    // const float btnY = screenHeight/2.f;
+    // levelSelectManager.placeButton("Play", Vector2 { btnX, btnY }, buttonTexture, []{currentScreen = screen::Game; });
+
+    ui::Button playButton(Vector2 { 0, 0 }, buttonTexture, []{ currentScreen = screen::Game; });
+
+    playButton.label = "Play";
+    playButton.alignmentX = ui::Button::AlignmentX::Center;
+    playButton.alignmentY = ui::Button::AlignmentY::Center;
+
+    levelSelectManager.addButton(playButton);
 }
 void loadLevelSelect(Vector2 mousePos, float screenWidth, float screenHeight){
     static bool loaded = false;

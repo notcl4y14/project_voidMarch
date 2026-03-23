@@ -94,12 +94,21 @@ void drawStars(){
     }
 }
 void mainPreLoadTasks(float screenWidth, float screenHeight){
-    static Texture2D button = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
+    static Texture2D buttonTexture = LoadTexture("assets/UI/screen_interface/buttons/blueButton.png");
 
     // Place button in center
-    const float btnX = screenWidth/2.f;
-    const float btnY = screenHeight/2.f;
-    mainManager.placeButton( "START", Vector2 { btnX, btnY }, button, []{ currentScreen = screen::Select; });
+    // --
+    // const float btnX = screenWidth/2.f;
+    // const float btnY = screenHeight/2.f;
+    // mainManager.placeButton( "START", Vector2 { btnX, btnY }, buttonTexture, []{ currentScreen = screen::Select; });
+
+    ui::Button startButton(Vector2 { 0, 0 }, buttonTexture, []{ currentScreen = screen::Select; });
+
+    startButton.label = "START";
+    startButton.alignmentX = ui::Button::AlignmentX::Center;
+    startButton.alignmentY = ui::Button::AlignmentY::Center;
+
+    mainManager.addButton(startButton);
 }
 
 void loadMainScreen(Vector2 mousePos, float screenWidth, float screenHeight){
